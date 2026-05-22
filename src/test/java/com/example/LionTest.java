@@ -11,36 +11,39 @@ import static org.junit.Assert.assertThrows;
 public class LionTest {
 
     @Test
-    public void getFoodReturnsFoodFromPredator() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
+    public void getFoodReturnsFoodFromFeline() throws Exception {
+        Feline feline = Mockito.mock(Feline.class);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(predator.eatMeat()).thenReturn(expectedFood);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(expectedFood);
 
-        Lion lion = new Lion("Самец", predator, 3);
+        Lion lion = new Lion("Самец", feline);
 
         assertEquals(expectedFood, lion.getFood());
-        Mockito.verify(predator).eatMeat();
+        Mockito.verify(feline).getFood("Хищник");
     }
 
     @Test
-    public void getKittensReturnsInjectedValue() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
-        Lion lion = new Lion("Самка", predator, 2);
+    public void getKittensReturnsValueFromFeline() throws Exception {
+        Feline feline = Mockito.mock(Feline.class);
+        Mockito.when(feline.getKittens()).thenReturn(2);
+
+        Lion lion = new Lion("Самка", feline);
 
         assertEquals(2, lion.getKittens());
+        Mockito.verify(feline).getKittens();
     }
 
     @Test
     public void constructorThrowsExceptionForIncorrectSex() {
-        Predator predator = Mockito.mock(Predator.class);
+        Feline feline = Mockito.mock(Feline.class);
 
         Exception exception = assertThrows(
                 Exception.class,
-                () -> new Lion("Неизвестно", predator, 1)
+                () -> new Lion("Неизвестно", feline)
         );
 
         assertEquals(
-                "Используйте допустимые значения пола животного - самец или самка",
+                "Используйте допустимые значения пола животного - самей или самка",
                 exception.getMessage()
         );
     }

@@ -30,8 +30,8 @@ public class LionParameterizedTest {
 
     @Test
     public void doesHaveManeDependsOnSex() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
-        Lion lion = new Lion(sex, predator, 1);
+        Feline feline = Mockito.mock(Feline.class);
+        Lion lion = new Lion(sex, feline);
 
         assertEquals(expectedHasMane, lion.doesHaveMane());
     }
